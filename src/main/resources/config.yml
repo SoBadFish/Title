@@ -1,0 +1,18 @@
+title: "&7[&lTITLE&r&7]"
+# 界面
+# auto 自动适配
+# packet 箱子界面
+# ui From窗口
+UI: auto
+#mysql
+
+empty-display: "无称号"
+
+
+
+mysql:
+  host: "localhost"
+  port: 3306
+  user: "ganq2333"
+  password: "ganq2333"
+  database: "title"
