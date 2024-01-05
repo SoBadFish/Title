@@ -23,6 +23,8 @@ public class TipVariable extends BaseVariable {
         if(data1 != null){
             title = data1.name;
         }
-        addStrReplaceString("{?Title}", TextFormat.colorize('&',title));
+        title = title.replace("@p",data.name);
+        addStrReplaceString("{title}", TextFormat.colorize('&',title));
+        addStrReplaceString("{?title}", TextFormat.colorize('&',title));
     }
 }

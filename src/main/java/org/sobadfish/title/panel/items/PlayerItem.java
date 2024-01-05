@@ -63,19 +63,19 @@ public class PlayerItem extends BasePlayPanelItemInstance {
         }
 
         data.wearTitle(titleData);
-        TitleMain.sendMessageToObject("&a成功更换称号 &r"+titleData.name,player);
+        TitleMain.sendMessageToObject("&a成功更换称号 &r"+titleData.name.replace("@p",player.getName()),player);
     }
 
     @Override
     public Item getPanelItem(Player i, int index) {
         Item item = getItem().clone();
         PlayerData playerData = TitleMain.playerManager.getData(i.getName());
-        item.setCustomName(TextFormat.colorize('&',"&r"+titleData.name));
+        item.setCustomName(TextFormat.colorize('&',"&r"+titleData.name.replace("@p",i.getName())));
         //todo 这里似乎可以画个lore
         List<String> lore = new ArrayList<>();
         lore.add(TextFormat.colorize('&',"&r"));
-        lore.add(TextFormat.colorize('&', String.valueOf("&r☛ 到期时间: &a"+
-                ((titleData.outTime == null || "".equalsIgnoreCase(titleData.outTime))?"永久":titleData.outTime))));
+        lore.add(TextFormat.colorize('&', "&r☛ 到期时间: &a" +
+                ((titleData.outTime == null || "".equalsIgnoreCase(titleData.outTime)) ? "永久" : titleData.outTime)));
         lore.add(TextFormat.colorize('&',"&r"));
         if(titleData.outTime != null && !"".equalsIgnoreCase(titleData.outTime.trim())) {
             int s = Tools.calLastedTime(titleData.outTime);
@@ -99,7 +99,7 @@ public class PlayerItem extends BasePlayPanelItemInstance {
     @Override
     public ElementButton getButton(Player info) {
         PlayerData playerData = TitleMain.playerManager.getData(info.getName());
-        return new ElementButton(TextFormat.colorize('&',titleData.name+"&r&7有效期 ("+((titleData.outTime == null || "".equalsIgnoreCase(titleData.outTime) || "null".equalsIgnoreCase(titleData.outTime))?"永久":titleData.outTime)+"&7)\n&r"
+        return new ElementButton(TextFormat.colorize('&',titleData.name.replace("@p",info.getName())+"&r&7有效期 ("+((titleData.outTime == null || "".equalsIgnoreCase(titleData.outTime) || "null".equalsIgnoreCase(titleData.outTime))?"永久":titleData.outTime)+"&7)\n&r"
                 +((playerData.wearTitle != null && playerData.wearTitle.equals(titleData))?"&a已佩戴":"&c未佩戴")
         ),new ElementButtonImageData("path","textures/ui/message"));
     }

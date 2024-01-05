@@ -83,7 +83,7 @@ public class TitleCommand extends Command {
                             PlayerData.TitleData titleData = new PlayerData.TitleData(strings[2],Integer.parseInt(strings[3]),null,0);
                             manager.addTitle(titleData);
 
-                            TitleMain.sendMessageToObject("&a成功给予玩家称号:&r "+strings[2]+" 有效期: &7"+  ((titleData.outTime == null || "".equalsIgnoreCase(titleData.outTime))?"永久":titleData.outTime),commandSender);
+                            TitleMain.sendMessageToObject("&a成功给予玩家称号:&r "+strings[2].replace("@p",player)+" 有效期: &7"+  ((titleData.outTime == null || "".equalsIgnoreCase(titleData.outTime))?"永久":titleData.outTime),commandSender);
 
                         }else{
                             TitleMain.sendMessageToObject("指令错误 输/ch help 查看帮助",commandSender);
@@ -111,9 +111,9 @@ public class TitleCommand extends Command {
                             }
                             PlayerData manager = TitleMain.playerManager.getData(playerName);
                             if(manager.removeTitle(strings[2])){
-                                TitleMain.sendMessageToObject("&a成功移除玩家 &7"+playerName+" &a称号 &r"+strings[2],commandSender);
+                                TitleMain.sendMessageToObject("&a成功移除玩家 &7"+playerName+" &a称号 &r"+strings[2].replace("@p",playerName),commandSender);
                             }else{
-                                TitleMain.sendMessageToObject("&c玩家 &7"+playerName+" &c不存在称号 &r"+strings[2],commandSender);
+                                TitleMain.sendMessageToObject("&c玩家 &7"+playerName+" &c不存在称号 &r"+strings[2].replace("@p",playerName),commandSender);
                             }
 
                         }else{

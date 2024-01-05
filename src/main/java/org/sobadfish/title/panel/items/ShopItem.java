@@ -61,7 +61,7 @@ public class ShopItem extends BasePlayPanelItemInstance {
         if(EconomyAPI.getInstance().myMoney(player) >= titleData.money){
             EconomyAPI.getInstance().reduceMoney(player,titleData.money);
             info.addTitle(titleData.asTitleData());
-            TitleMain.sendMessageToObject("&a你成功购买称号 &r"+titleData.name,player);
+            TitleMain.sendMessageToObject("&a你成功购买称号 &r"+titleData.name.replace("@p",player.getName()),player);
         }else{
             TitleMain.sendMessageToObject("&c你的金钱不足!",player);
         }
@@ -72,7 +72,7 @@ public class ShopItem extends BasePlayPanelItemInstance {
     public Item getPanelItem(Player info, int index) {
         Item item = getItem().clone();
 
-        item.setCustomName(TextFormat.colorize('&',"&r"+titleData.name));
+        item.setCustomName(TextFormat.colorize('&',"&r"+titleData.name.replace("@p",info.getName())));
         //todo 这里似乎可以画个lore
         List<String> lore = new ArrayList<>();
         lore.add(TextFormat.colorize('&',"&r"));

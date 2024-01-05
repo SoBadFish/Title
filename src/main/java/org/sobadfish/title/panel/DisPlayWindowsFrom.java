@@ -58,16 +58,6 @@ public class DisPlayWindowsFrom {
         titleFrom.disPlay(player);
     }
 
-    public static void addServerSetting(Player player){
-        FormWindowCustom custom = new FormWindowCustom(TextFormat.colorize('&',"&e其他设置"),new ArrayList<>(),new ElementButtonImageData("path","textures/ui/setting"));
-        custom.addElement(new ElementLabel("以下设置可以定制化的实现你在服务器游玩的功能"));
-        custom.addElement(new ElementToggle("强制疾跑",false));
-        int i = player.addServerSettings(custom);
-        SERVER_SETTING.put(player,i);
-
-    }
-
-
 
     public static int getId(){
         return Tools.rand(FROM_ID,FROM_MAX_ID);
