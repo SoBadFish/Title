@@ -12,8 +12,7 @@ import com.smallaswater.easysql.v3.mysql.utils.SelectType;
 import org.sobadfish.title.TitleMain;
 import org.sobadfish.title.data.PlayerData;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -22,7 +21,7 @@ import java.util.concurrent.Executors;
  * @author Sobadfish
  * @date 2022/9/15
  */
-public class PlayerManager {
+public class PlayerManager implements IDataManager{
 
     public static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
 
@@ -43,42 +42,45 @@ public class PlayerManager {
 
     }
 
+    @Override
     public PlayerData getData(String player){
         PlayerData data = new PlayerData(player);
+        if(dataList.contains(data)){
+            return dataList.get(dataList.indexOf(data));
+        }
         if(connected){
-            if(dataList.contains(data)){
-                return dataList.get(dataList.indexOf(data));
-            }else{
-                SqlDataList<SqlData> sqlDataList = sqlManager.getData("SELECT * FROM "+PLAYER_TABLE+" LEFT JOIN "+TITLE_TABLE+" ON user = id  WHERE player=?"
-                        ,new ChunkSqlType(1,player));
-                if(sqlDataList.size() > 0){
-                    for(SqlData titleData: sqlDataList){
-                        String time = titleData.getString("time");
-                        if(time.isEmpty() || "null".equalsIgnoreCase(time)){
-                            time = null;
-                        }
-                        PlayerData.TitleData td = new PlayerData.TitleData(
-                                titleData.getString("name"),
-                                time,
-                                titleData.getString("cmd"),
-                                titleData.getInt("delay")
-                        );
-                        td.id =  titleData.getInt("tid");
-                        data.titles.add(td);
-                        if((td.id+"").equalsIgnoreCase(titleData.getString("wear"))){
-                            data.wearTitle(td);
-                        }
+            SqlDataList<SqlData> sqlDataList = sqlManager.getData("SELECT * FROM "+PLAYER_TABLE+" LEFT JOIN "+TITLE_TABLE+" ON user = id  WHERE player=?"
+                    ,new ChunkSqlType(1,player));
+            if(sqlDataList.size() > 0){
+                for(SqlData titleData: sqlDataList){
+                    String time = titleData.getString("time");
+                    if(time.isEmpty() || "null".equalsIgnoreCase(time)){
+                        time = null;
                     }
-
-                    dataList.add(data);
-
+                    PlayerData.TitleData td = new PlayerData.TitleData(
+                            titleData.getString("name"),
+                            time,
+                            titleData.getString("cmd"),
+                            titleData.getInt("delay")
+                    );
+                    td.id =  titleData.getInt("tid");
+                    data.titles.add(td);
+                    if((td.id+"").equalsIgnoreCase(titleData.getString("wear"))){
+                        data.wearTitle(td);
+                    }
                 }
+
+                dataList.add(data);
+
             }
+
+
         }
         return data;
     }
 
-    public void addTitle(String player,PlayerData.TitleData titleData){
+    @Override
+    public void addTitle(String player, PlayerData.TitleData titleData){
         //后台执行就可以了
         EXECUTOR_SERVICE.execute(() -> {
             if (connected) {
@@ -125,7 +127,8 @@ public class PlayerManager {
 
     }
 
-    public void removeTitle(String player,String titleData){
+    @Override
+    public void removeTitle(String player, String titleData){
         EXECUTOR_SERVICE.execute(() -> {
             if(connected) {
                 SqlDataList<SqlData> sqlDataList = sqlManager.getData("SELECT tid FROM "
@@ -151,6 +154,8 @@ public class PlayerManager {
 
 //        //TODO 获取数据库内的数据
         try {
+
+
             SqlManager sqlDataManager = new SqlManager(titleMain,new UserData(
                     config.getString("mysql.user"),
                     config.getString("mysql.password"),
@@ -191,7 +196,7 @@ public class PlayerManager {
 
 
 
-
+    @Override
     public void wearTitle(String player, PlayerData.TitleData title) {
         if(connected){
             EXECUTOR_SERVICE.execute(() -> {
@@ -217,5 +222,10 @@ public class PlayerManager {
             });
         }
 
+    }
+
+    @Override
+    public List<PlayerData> getDataList() {
+        return dataList;
     }
 }

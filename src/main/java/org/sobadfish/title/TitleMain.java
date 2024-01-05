@@ -4,7 +4,9 @@ import cn.nukkit.Player;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.TextFormat;
 import org.sobadfish.title.command.TitleCommand;
+import org.sobadfish.title.manager.IDataManager;
 import org.sobadfish.title.manager.PlayerManager;
+import org.sobadfish.title.manager.PlayerNoSqlManager;
 import org.sobadfish.title.manager.ShopManager;
 import org.sobadfish.title.panel.lib.AbstractFakeInventory;
 import org.sobadfish.title.thread.TitleLoadTask;
@@ -22,13 +24,14 @@ public class TitleMain extends PluginBase {
 
     public static TitleMain titleMain;
 
-    public static PlayerManager playerManager;
+    public static IDataManager playerManager;
 
     public static ShopManager shopManager;
 
     public static UiType uiType;
 
     //系统设置
+    public static boolean enableSQL = false;
 
 
 
@@ -56,10 +59,31 @@ public class TitleMain extends PluginBase {
 
         uiType = Tools.loadUiTypeByName(getConfig().getString("UI","auto"));
 //        saveResource("player.json",false);
+//        saveResource("titleShop.json",false);
+
         saveResource("titleShop.json",false);
 
+
         shopManager = ShopManager.asFile(new File(this.getDataFolder()+File.separator+"titleShop.json"));
-        playerManager = PlayerManager.asDb(this);
+        try{
+            Class.forName("com.smallaswater.easysql.v3.mysql.manager.SqlManager");
+            playerManager = PlayerManager.asDb(this);
+            if(((PlayerManager)playerManager).sqlManager != null){
+                return;
+            }
+
+        }catch (Exception ignore){
+
+        }
+        enableSQL = false;
+        titleMain.getLogger().error("启动本地离线版..");
+
+        saveResource("player.json",false);
+        titleMain.getLogger().error("加载本地用户称号..");
+        playerManager = PlayerNoSqlManager.asFile(new File(this.getDataFolder()+File.separator+"player.json"));
+
+
+
 
 
     }
@@ -137,9 +161,13 @@ public class TitleMain extends PluginBase {
 
     @Override
     public void onDisable() {
-//        if(playerManager != null){
-//            playerManager.update();
-//        }
+
+        if(playerManager != null){
+            if(!enableSQL){
+                ((PlayerNoSqlManager)playerManager).save();
+            }
+
+        }
         if(shopManager != null){
             shopManager.save();
         }

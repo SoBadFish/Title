@@ -47,8 +47,9 @@ public class PlayerData {
     }
 
     public void addTitle(TitleData title){
+        TitleData titleData = title;
         if(titles.contains(title)){
-            TitleData titleData = titles.get(titles.indexOf(title));
+            titleData = titles.get(titles.indexOf(title));
             if(title.outTime == null){
                 titleData.outTime = null;
             }else{
@@ -62,11 +63,11 @@ public class PlayerData {
             }
 
         }else{
-            titles.add(title);
+            titles.add(titleData);
         }
-        this.wearTitle = title;
+        this.wearTitle = titleData;
         if(TitleMain.playerManager != null) {
-            TitleMain.playerManager.addTitle(name, title);
+            TitleMain.playerManager.addTitle(name, titleData);
         }else{
             TitleMain.sendMessageToConsole("&c未连接到数据库,可能会出现称号丢失问题。请检查数据库连接参数是否正常");
         }

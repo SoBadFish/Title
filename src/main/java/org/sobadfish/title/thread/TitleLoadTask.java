@@ -24,7 +24,7 @@ public class TitleLoadTask extends PluginTask<TitleMain> {
 
     @Override
     public void onRun(int i) {
-        for(PlayerData playerData: TitleMain.playerManager.dataList){
+        for(PlayerData playerData: TitleMain.playerManager.getDataList()){
             playerData.deleteTimeOut();
             if(!loadTime.containsKey(playerData)){
                 loadTime.put(playerData,System.currentTimeMillis());

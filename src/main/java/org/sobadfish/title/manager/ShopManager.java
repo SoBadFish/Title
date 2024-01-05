@@ -1,6 +1,5 @@
 package org.sobadfish.title.manager;
 
-import org.sobadfish.title.data.PlayerData;
 import org.sobadfish.title.data.ShopData;
 
 import java.io.File;
@@ -20,6 +19,6 @@ public class ShopManager extends BaseDataWriterGetterManager<ShopData> {
 
 
     public static ShopManager asFile(File file){
-        return (ShopManager) BaseDataWriterGetterManager.asFile(file,"player.json", ShopData[].class,ShopManager.class);
+        return (ShopManager) BaseDataWriterGetterManager.asFile(file,"titleShop.json", ShopData[].class,ShopManager.class);
     }
 }

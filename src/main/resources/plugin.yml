@@ -1,9 +1,10 @@
 name: Title
 main: org.sobadfish.title.TitleMain
-version: 1.0.4
+version: 1.0.5
 api: 1.0.13
 author: Sobadfish
 depend:
   - Tips
   - EconomyAPI
+softdepend:
   - EasyMySQL

@@ -62,7 +62,9 @@ public class TitleListener implements Listener {
     public void onQuit(PlayerQuitEvent event){
         String playerName = event.getPlayer().getName();
         if(TitleMain.playerManager != null){
-            TitleMain.playerManager.dataList.remove(new PlayerData(playerName));
+            if(TitleMain.enableSQL){
+                TitleMain.playerManager.getDataList().remove(new PlayerData(playerName));
+            }
         }
 
 
@@ -86,43 +88,8 @@ public class TitleListener implements Listener {
 
 
         }
-//        if(DisPlayWindowsFrom.SERVER_SETTING.containsKey(player)){
-//            if(event.getResponse() instanceof FormResponseCustom){
-//                FormResponseCustom custom = (FormResponseCustom) event.getResponse();
-//                boolean isOpen = custom.getToggleResponse(1);
-//                player.setSprinting(isOpen);
-//                PlayerData data = TitleMain.playerManager.getData(player.getName());
-////                data.hasSpring = isOpen;
-//                TitleMain.sendMessageToObject("&a强制疾跑: &r"+(isOpen?"&e开启":"&c关闭"),player);
-//
-//            }
-
-
-
-//        }
     }
 
 
-
-//    @EventHandler
-//    public void onMove(PlayerMoveEvent event){
-//        Player player = event.getPlayer();
-//        PlayerData data = TitleMain.playerManager.getData(player.getName());
-//        if(data.hasSpring){
-//            player.setSprinting();
-//        }
-//    }
-
-//    @EventHandler
-//    public void onJoin(PlayerJoinEvent event){
-//        Player player = event.getPlayer();
-//        if (player == null) {
-//            return;
-//        }
-//        DisPlayWindowsFrom.addServerSetting(event.getPlayer());
-//        PlayerData data = TitleMain.playerManager.getData(event.getPlayer().getName());
-//        data.hasSpring = false;
-////        event.getPlayer().setSprinting(true);
-//    }
 
 }
