@@ -53,7 +53,7 @@ public class PlayerData {
             if(title.outTime == null){
                 titleData.outTime = null;
             }else{
-                int time = Tools.calLastedTime(titleData.outTime);
+                int time = Tools.calLastedTime(title.outTime);
                 if(time < 0){
                     titleData.outTime = null;
                 }else{
