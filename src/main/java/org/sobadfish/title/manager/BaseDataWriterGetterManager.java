@@ -2,11 +2,13 @@ package org.sobadfish.title.manager;
 
 import com.google.common.base.Throwables;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.sobadfish.title.TitleMain;
 
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,13 +30,13 @@ public class BaseDataWriterGetterManager<T>{
     }
 
     public static <T> BaseDataWriterGetterManager<?> asFile(File file,String fileName, Class<T> tClass,Class<? extends BaseDataWriterGetterManager<?>> baseClass){
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         InputStreamReader reader = null;
         try {
             if(!file.exists()){
                 TitleMain.getTitleMain().saveResource(fileName,false);
             }
-            reader = new InputStreamReader(new FileInputStream(file));
+            reader = new InputStreamReader(new FileInputStream(file),StandardCharsets.UTF_8);
             Object[] data = (Object[]) gson.fromJson(reader, tClass);
             Constructor<?> constructor = baseClass.getConstructor(List.class,File.class);
             if(data != null){
@@ -62,7 +64,7 @@ public class BaseDataWriterGetterManager<T>{
     }
 
     public void save(){
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
         if(!file.exists()){
             try {
                 if(!file.createNewFile()){
@@ -73,7 +75,7 @@ public class BaseDataWriterGetterManager<T>{
             }
         }
         try {
-            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(file));
+            OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
             String json = gson.toJson(dataList);
             writer.write(json,0,json.length());
             writer.close();
