@@ -9,8 +9,10 @@ UI: auto
 empty-display: "无称号"
 
 
-
+# 数据库配置信息
+# 如果你希望称号支持跨服功能 则需要启用数据库
 mysql:
+  enable: false
   host: "localhost"
   port: 3306
   user: "ganq2333"

@@ -58,26 +58,25 @@ public class TitleMain extends PluginBase {
         this.reloadConfig();
 
         uiType = Tools.loadUiTypeByName(getConfig().getString("UI","auto"));
-//        saveResource("player.json",false);
-//        saveResource("titleShop.json",false);
 
         saveResource("titleShop.json",false);
 
 
         shopManager = ShopManager.asFile(new File(this.getDataFolder()+File.separator+"titleShop.json"));
-        try{
-            Class.forName("com.smallaswater.easysql.v3.mysql.manager.SqlManager");
-            playerManager = PlayerManager.asDb(this);
-            if(((PlayerManager)playerManager).sqlManager != null){
-                return;
+        if(getConfig().getBoolean("mysql.enable",false)){
+            try{
+                Class.forName("com.smallaswater.easysql.v3.mysql.manager.SqlManager");
+                playerManager = PlayerManager.asDb(this);
+                if(((PlayerManager)playerManager).sqlManager != null){
+                    return;
+                }
+
+            }catch (Exception ignore){
+
             }
-
-        }catch (Exception ignore){
-
         }
         enableSQL = false;
         titleMain.getLogger().error("启动本地离线版..");
-
         saveResource("player.json",false);
         titleMain.getLogger().error("加载本地用户称号..");
         playerManager = PlayerNoSqlManager.asFile(new File(this.getDataFolder()+File.separator+"player.json"));
