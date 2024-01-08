@@ -6,6 +6,7 @@ import cn.nukkit.command.ConsoleCommandSender;
 import cn.nukkit.scheduler.PluginTask;
 import org.sobadfish.title.TitleMain;
 import org.sobadfish.title.data.PlayerData;
+import org.sobadfish.title.data.TitleData;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class TitleLoadTask extends PluginTask<TitleMain> {
                     && playerData.wearTitle.delay > 0
                     &&( playerData.wearTitle.cmd != null
                     && !"".equalsIgnoreCase(playerData.wearTitle.cmd))){
-                PlayerData.TitleData titleData = playerData.wearTitle;
+                TitleData titleData = playerData.wearTitle;
                 Player player = Server.getInstance().getPlayer(titleData.name);
                 if(player != null) {
                     if (System.currentTimeMillis() - loadTime.get(playerData) >= playerData.wearTitle.delay * 1000L) {

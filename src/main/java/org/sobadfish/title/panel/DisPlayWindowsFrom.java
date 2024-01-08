@@ -1,14 +1,10 @@
 package org.sobadfish.title.panel;
 
 import cn.nukkit.Player;
-import cn.nukkit.form.element.ElementButtonImageData;
-import cn.nukkit.form.element.ElementLabel;
-import cn.nukkit.form.element.ElementToggle;
-import cn.nukkit.form.window.FormWindowCustom;
-import cn.nukkit.utils.TextFormat;
 import org.sobadfish.title.TitleMain;
 import org.sobadfish.title.data.PlayerData;
 import org.sobadfish.title.data.ShopData;
+import org.sobadfish.title.data.TitleData;
 import org.sobadfish.title.panel.from.TitleFrom;
 import org.sobadfish.title.panel.items.PlayerItem;
 import org.sobadfish.title.panel.items.ShopItem;
@@ -35,7 +31,7 @@ public class DisPlayWindowsFrom {
     public static List<BasePlayPanelItemInstance> getPlayerFrom(Player player){
         List<BasePlayPanelItemInstance> basePlayPanelItemInstances = new ArrayList<>();
         PlayerData data = TitleMain.playerManager.getData(player.getName());
-        for(PlayerData.TitleData titleData: data.titles){
+        for(TitleData titleData: data.titles){
             basePlayPanelItemInstances.add(new PlayerItem(data,titleData));
         }
         return basePlayPanelItemInstances;

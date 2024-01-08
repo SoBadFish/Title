@@ -4,6 +4,7 @@ import cn.nukkit.Player;
 import cn.nukkit.utils.TextFormat;
 import org.sobadfish.title.TitleMain;
 import org.sobadfish.title.data.PlayerData;
+import org.sobadfish.title.data.TitleData;
 import tip.utils.variables.BaseVariable;
 
 /**
@@ -18,7 +19,7 @@ public class TipVariable extends BaseVariable {
     @Override
     public void strReplace() {
         PlayerData data = TitleMain.playerManager.getData(player.getName());
-        PlayerData.TitleData data1 = data.wearTitle;
+        TitleData data1 = data.wearTitle;
         String title = TitleMain.getEmptyTitle();
         if(data1 != null){
             title = data1.name;

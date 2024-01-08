@@ -8,6 +8,7 @@ import cn.nukkit.inventory.InventoryHolder;
 import org.sobadfish.title.TitleMain;
 import org.sobadfish.title.data.PlayerData;
 import org.sobadfish.title.data.ShopData;
+import org.sobadfish.title.data.TitleData;
 import org.sobadfish.title.panel.items.PlayerItem;
 import org.sobadfish.title.panel.items.ShopItem;
 import org.sobadfish.title.panel.lib.AbstractFakeInventory;
@@ -27,7 +28,7 @@ public class DisPlayerPanel implements InventoryHolder {
         Map<Integer,BasePlayPanelItemInstance> panel = new LinkedHashMap<>();
         int index = 10;
         int size = 0;
-        for(PlayerData.TitleData titleData: playerData.titles){
+        for(TitleData titleData: playerData.titles){
             panel.put(index,new PlayerItem(playerData,titleData));
             if(size  == 6){
                 size = 0;

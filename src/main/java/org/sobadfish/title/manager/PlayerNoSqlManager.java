@@ -1,6 +1,7 @@
 package org.sobadfish.title.manager;
 
 import org.sobadfish.title.data.PlayerData;
+import org.sobadfish.title.data.TitleData;
 
 import java.io.File;
 import java.util.List;
@@ -36,11 +37,11 @@ public class PlayerNoSqlManager extends BaseDataWriterGetterManager<PlayerData> 
     }
 
     @Override
-    public void addTitle(String player, PlayerData.TitleData titleData) {}
+    public void addTitle(String player, TitleData titleData) {}
 
     @Override
     public void removeTitle(String player, String titleData) {}
 
     @Override
-    public void wearTitle(String player, PlayerData.TitleData title) {}
+    public void wearTitle(String player, TitleData title) {}
 }

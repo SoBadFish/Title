@@ -11,8 +11,10 @@ import com.smallaswater.easysql.v3.mysql.manager.SqlManager;
 import com.smallaswater.easysql.v3.mysql.utils.SelectType;
 import org.sobadfish.title.TitleMain;
 import org.sobadfish.title.data.PlayerData;
+import org.sobadfish.title.data.TitleData;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -57,7 +59,7 @@ public class PlayerManager implements IDataManager{
                     if(time.isEmpty() || "null".equalsIgnoreCase(time)){
                         time = null;
                     }
-                    PlayerData.TitleData td = new PlayerData.TitleData(
+                    TitleData td = new TitleData(
                             titleData.getString("name"),
                             time,
                             titleData.getString("cmd"),
@@ -80,7 +82,7 @@ public class PlayerManager implements IDataManager{
     }
 
     @Override
-    public void addTitle(String player, PlayerData.TitleData titleData){
+    public void addTitle(String player, TitleData titleData){
         //后台执行就可以了
         EXECUTOR_SERVICE.execute(() -> {
             if (connected) {
@@ -197,7 +199,7 @@ public class PlayerManager implements IDataManager{
 
 
     @Override
-    public void wearTitle(String player, PlayerData.TitleData title) {
+    public void wearTitle(String player, TitleData title) {
         if(connected){
             EXECUTOR_SERVICE.execute(() -> {
                 //修改称号

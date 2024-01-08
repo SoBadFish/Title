@@ -7,6 +7,7 @@ import cn.nukkit.command.CommandSender;
 import org.sobadfish.title.TitleMain;
 import org.sobadfish.title.data.PlayerData;
 import org.sobadfish.title.data.ShopData;
+import org.sobadfish.title.data.TitleData;
 import org.sobadfish.title.manager.DisplayManager;
 import org.sobadfish.title.manager.ShopManager;
 
@@ -80,7 +81,7 @@ public class TitleCommand extends Command {
                                 player = p.getName();
                             }
                             PlayerData manager = TitleMain.playerManager.getData(player);
-                            PlayerData.TitleData titleData = new PlayerData.TitleData(strings[2],Integer.parseInt(strings[3]),null,0);
+                            TitleData titleData = new TitleData(strings[2],Integer.parseInt(strings[3]),null,0);
                             manager.addTitle(titleData);
 
                             TitleMain.sendMessageToObject("&a成功给予玩家称号:&r "+strings[2].replace("@p",player)+" 有效期: &7"+  ((titleData.outTime == null || "".equalsIgnoreCase(titleData.outTime))?"永久":titleData.outTime),commandSender);

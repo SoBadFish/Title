@@ -4,7 +4,7 @@ package org.sobadfish.title.data;
  * @author Sobadfish
  * @date 2022/9/15
  */
-public class ShopData extends PlayerData.TitleData {
+public class ShopData extends TitleData {
 
     public double money;
 
@@ -18,7 +18,7 @@ public class ShopData extends PlayerData.TitleData {
 
 
 
-    public PlayerData.TitleData asTitleData(){
-        return new PlayerData.TitleData(name,time,cmd,delay);
+    public TitleData asTitleData(){
+        return new TitleData(name,time,cmd,delay);
     }
 }

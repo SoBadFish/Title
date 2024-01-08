@@ -1,6 +1,7 @@
 package org.sobadfish.title.manager;
 
 import org.sobadfish.title.data.PlayerData;
+import org.sobadfish.title.data.TitleData;
 
 import java.util.List;
 
@@ -12,11 +13,11 @@ public interface IDataManager {
 
     PlayerData getData(String player);
 
-    void addTitle(String player,PlayerData.TitleData titleData);
+    void addTitle(String player, TitleData titleData);
 
     void removeTitle(String player,String titleData);
 
-    void wearTitle(String player, PlayerData.TitleData title);
+    void wearTitle(String player, TitleData title);
 
     List<PlayerData> getDataList();
 }

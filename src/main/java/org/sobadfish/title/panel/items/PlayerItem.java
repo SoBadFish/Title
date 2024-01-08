@@ -8,6 +8,7 @@ import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.utils.TextFormat;
 import org.sobadfish.title.TitleMain;
 import org.sobadfish.title.data.PlayerData;
+import org.sobadfish.title.data.TitleData;
 import org.sobadfish.title.panel.BasePlayPanelItemInstance;
 import org.sobadfish.title.panel.ChestInventoryPanel;
 import org.sobadfish.title.panel.from.TitleFrom;
@@ -20,9 +21,9 @@ public class PlayerItem extends BasePlayPanelItemInstance {
 
     private final PlayerData info;
 
-    private final PlayerData.TitleData titleData;
+    private final TitleData titleData;
 
-    public PlayerItem(PlayerData info, PlayerData.TitleData titleData){
+    public PlayerItem(PlayerData info, TitleData titleData){
         this.info = info;
         this.titleData = titleData;
     }
