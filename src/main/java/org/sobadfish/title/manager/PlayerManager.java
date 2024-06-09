@@ -35,6 +35,8 @@ public class PlayerManager implements IDataManager{
 
     private static final String TITLE_TABLE = "title";
 
+    private static final String TITLE_LIB_TABLE = "titleLib";
+
     //本地缓存..
     public List<PlayerData> dataList;
 
@@ -65,9 +67,9 @@ public class PlayerManager implements IDataManager{
                             titleData.getString("cmd"),
                             titleData.getInt("delay")
                     );
-                    td.id =  titleData.getInt("tid");
+                    td.tid =  titleData.getInt("tid");
                     data.titles.add(td);
-                    if((td.id+"").equalsIgnoreCase(titleData.getString("wear"))){
+                    if((td.tid+"").equalsIgnoreCase(titleData.getString("wear"))){
                         data.wearTitle(td);
                     }
                 }
@@ -193,6 +195,14 @@ public class PlayerManager implements IDataManager{
                 new TableType("delay", DataType.getINT()),
                 new TableType("time", DataType.getVARCHAR()),
                 new TableType("user", DataType.getINT()));
+
+        sqlManager.createTable(TITLE_LIB_TABLE,new TableType(
+                "lid",DataType.getID()),
+                new TableType("name", DataType.getVARCHAR()),
+                new TableType("cmd", DataType.getVARCHAR()),
+                new TableType("delay", DataType.getINT()),
+                new TableType("time", DataType.getVARCHAR()
+        ));
 
     }
 

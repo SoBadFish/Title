@@ -40,6 +40,9 @@ public class TitleCommand extends Command {
                     if(commandSender.isOp()){
                         TitleMain.sendMessageToObject("&6/ch shop &a[add/remove] &a[title] &a[money] &a[time(s)] &7增加商店内称号",commandSender);
                         TitleMain.sendMessageToObject("&6/ch give &a[player] &a[title] &a[time(s)] &7给予玩家一定时长的称号",commandSender);
+                        TitleMain.sendMessageToObject("&6/ch gl &a[player] &a[id] &a[time(s)] &7给予玩家称号库中一定时长的称号",commandSender);
+                        TitleMain.sendMessageToObject("&6/ch create &a[title] &a[cmd（可选）] &a[delay(s)（可选）] &7在称号库中创建称号",commandSender);
+                        TitleMain.sendMessageToObject("&6/ch lib &a[page(页码)] &7查看称号库里的称号",commandSender);
                         TitleMain.sendMessageToObject("&6/ch remove &a[player] &a[title] &7移除玩家称号",commandSender);
                         TitleMain.sendMessageToObject("&6/ch reload &7重载配置",commandSender);
                     }else{

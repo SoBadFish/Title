@@ -37,11 +37,17 @@ public class PlayerNoSqlManager extends BaseDataWriterGetterManager<PlayerData> 
     }
 
     @Override
-    public void addTitle(String player, TitleData titleData) {}
+    public void addTitle(String player, TitleData titleData) {
+        save();
+    }
 
     @Override
-    public void removeTitle(String player, String titleData) {}
+    public void removeTitle(String player, String titleData) {
+        save();
+    }
 
     @Override
-    public void wearTitle(String player, TitleData title) {}
+    public void wearTitle(String player, TitleData title) {
+        save();
+    }
 }

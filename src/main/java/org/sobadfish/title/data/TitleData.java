@@ -9,7 +9,9 @@ import java.util.Objects;
  * @date 2024/1/8
  */
 public class TitleData {
-    public int id;
+
+
+    public int tid;
     /**
      * 称号名称
      * */

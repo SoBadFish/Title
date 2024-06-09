@@ -53,23 +53,6 @@
     <build>
         <finalName>${project.artifactId}_Plus_v${project.version}</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-
-                <configuration>
-                    <archive>
-                        <addMavenDescriptor>false</addMavenDescriptor>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib</classpathPrefix>
-                        </manifest>
-                        <manifestEntries>
-                            <Class-path>.lib/[Tips前置(v1.2.7)]ScoreboardAPI-1.3.jar</Class-path>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
