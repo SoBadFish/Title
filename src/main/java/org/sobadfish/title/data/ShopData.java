@@ -1,5 +1,7 @@
 package org.sobadfish.title.data;
 
+import java.util.Objects;
+
 /**
  * @author Sobadfish
  * @date 2022/9/15
@@ -16,9 +18,27 @@ public class ShopData extends TitleData {
         this.time = time;
     }
 
+    public ShopData(String name) {
+        super(name, null, null, 0);
+    }
 
 
     public TitleData asTitleData(){
         return new TitleData(name,time,cmd,delay);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o instanceof ShopData){
+            ShopData titleData = (ShopData) o;
+            return name.equals(titleData.name);
+        }
+        return false;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

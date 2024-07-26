@@ -38,7 +38,8 @@ public class TitleCommand extends Command {
                     TitleMain.sendMessageToObject("&6&l-----------------------------------\n",commandSender);
                     TitleMain.sendMessageToObject("&6/ch help &7查看帮助指令",commandSender);
                     if(commandSender.isOp()){
-                        TitleMain.sendMessageToObject("&6/ch shop &a[add/remove] &a[title] &a[money] &a[time(s)] &7增加商店内称号",commandSender);
+                        TitleMain.sendMessageToObject("&6/ch shop &aadd &a[title] &a[money] &a[time(s)] &7增加商店内称号",commandSender);
+                        TitleMain.sendMessageToObject("&6/ch shop &aremove &a[money] &a[time(s)] &7移除商店内称号",commandSender);
                         TitleMain.sendMessageToObject("&6/ch give &a[player] &a[title] &a[time(s)] &7给予玩家一定时长的称号",commandSender);
                         TitleMain.sendMessageToObject("&6/ch gl &a[player] &a[id] &a[time(s)] &7给予玩家称号库中一定时长的称号",commandSender);
                         TitleMain.sendMessageToObject("&6/ch create &a[title] &a[cmd（可选）] &a[delay(s)（可选）] &7在称号库中创建称号",commandSender);
@@ -58,8 +59,13 @@ public class TitleCommand extends Command {
                                     ShopManager manager = TitleMain.shopManager;
                                     manager.dataList.add(new ShopData(strings[2],null,0,Integer.parseInt(strings[4]),Double.parseDouble(strings[3])));
                                     TitleMain.sendMessageToObject("&a成功添加到商店",commandSender);
+                                    manager.save();
                                     break;
                                 case "remove":
+                                    manager = TitleMain.shopManager;
+                                    manager.dataList.remove(new ShopData(strings[2]));
+                                    TitleMain.sendMessageToObject("&a成功从商店移除",commandSender);
+                                    manager.save();
                                     break;
                                 default:break;
                             }
