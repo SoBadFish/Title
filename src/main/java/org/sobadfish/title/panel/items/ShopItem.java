@@ -60,7 +60,7 @@ public class ShopItem extends BasePlayPanelItemInstance {
 
         if(EconomyAPI.getInstance().myMoney(player) >= titleData.money){
             EconomyAPI.getInstance().reduceMoney(player,titleData.money);
-            info.addTitle(titleData.asTitleData());
+            info.addTitle(titleData);
             TitleMain.sendMessageToObject("&a你成功购买称号 &r"+titleData.name.replace("@p",player.getName()),player);
         }else{
             TitleMain.sendMessageToObject("&c你的金钱不足!",player);

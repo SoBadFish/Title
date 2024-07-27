@@ -50,10 +50,20 @@ public class PlayerData {
         TitleData titleData = title;
         if(titles.contains(title)){
             titleData = titles.get(titles.indexOf(title));
-            if(title.outTime == null){
+            String outTime = title.outTime;
+            if(title instanceof ShopData){
+                if(titleData.outTime != null && !"null".equalsIgnoreCase(titleData.outTime) && !titleData.outTime.isEmpty()){
+                    int tt = Tools.calLastedTime(titleData.outTime);
+                    tt += ((ShopData) title).time;
+                    outTime = Tools.mathTime(tt);
+                }
+
+            }
+
+            if(outTime == null){
                 titleData.outTime = null;
             }else{
-                int time = Tools.calLastedTime(title.outTime);
+                int time = Tools.calLastedTime(outTime);
                 if(time < 0){
                     titleData.outTime = null;
                 }else{
@@ -63,6 +73,9 @@ public class PlayerData {
             }
 
         }else{
+            if(title instanceof ShopData){
+                titleData = ((ShopData) title).asTitleData();
+            }
             titles.add(titleData);
         }
         this.wearTitle = titleData;
