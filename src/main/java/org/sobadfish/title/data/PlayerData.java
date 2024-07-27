@@ -52,10 +52,14 @@ public class PlayerData {
             titleData = titles.get(titles.indexOf(title));
             String outTime = title.outTime;
             if(title instanceof ShopData){
-                if(titleData.outTime != null && !"null".equalsIgnoreCase(titleData.outTime) && !titleData.outTime.isEmpty()){
-                    int tt = Tools.calLastedTime(titleData.outTime);
-                    tt += ((ShopData) title).time;
-                    outTime = Tools.mathTime(tt);
+                if(((ShopData) title).time <= 0){
+                    outTime = null;
+                }else{
+                    if(titleData.outTime != null && !"null".equalsIgnoreCase(titleData.outTime) && !titleData.outTime.isEmpty()){
+                        int tt = Tools.calLastedTime(titleData.outTime);
+                        tt += ((ShopData) title).time;
+                        outTime = Tools.mathTime(tt);
+                    }
                 }
 
             }
