@@ -168,6 +168,7 @@ public class PlayerManager implements IDataManager{
                     config.getString("mysql.database")
 
                     ));
+
             PlayerManager playerManager = new PlayerManager(new ArrayList<>(),sqlDataManager);
             playerManager.connected = true;
             playerManager.init();

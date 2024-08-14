@@ -31,6 +31,7 @@ public class PlayerNoSqlManager extends BaseDataWriterGetterManager<PlayerData> 
     public PlayerData getData(String player) {
         PlayerData data = new PlayerData(player);
         if(!dataList.contains(data)){
+
             dataList.add(data);
         }
         return dataList.get(dataList.indexOf(data));

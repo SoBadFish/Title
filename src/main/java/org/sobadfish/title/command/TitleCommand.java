@@ -133,6 +133,9 @@ public class TitleCommand extends Command {
                         TitleMain.sendMessageToObject("指令错误 输/ch help 查看帮助",commandSender);
                     }
                     break;
+                case "gl":
+
+                    break;
                 default:
 
                     TitleMain.sendMessageToObject("指令错误 输/ch help 查看帮助",commandSender);

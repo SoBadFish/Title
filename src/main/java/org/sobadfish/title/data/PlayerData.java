@@ -80,6 +80,14 @@ public class PlayerData {
             if(title instanceof ShopData){
                 titleData = ((ShopData) title).asTitleData();
             }
+            //设置ID
+            if(!TitleMain.enableSQL){
+                titleData.tid = titles.stream()
+                        .mapToInt(data -> data.tid)
+                        .max()
+                        .orElse(1) +1;
+            }
+
             titles.add(titleData);
         }
         this.wearTitle = titleData;
