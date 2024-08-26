@@ -31,11 +31,11 @@ public class PlayerManager implements IDataManager{
 
     public boolean connected;
 
-    private static final String PLAYER_TABLE = "player";
+    private static final String PLAYER_TABLE = "title_player";
 
-    private static final String TITLE_TABLE = "title";
+    private static final String TITLE_TABLE = "title_data";
 
-    private static final String TITLE_LIB_TABLE = "titleLib";
+    private static final String TITLE_LIB_TABLE = "title_titleLib";
 
     //本地缓存..
     public List<PlayerData> dataList;
