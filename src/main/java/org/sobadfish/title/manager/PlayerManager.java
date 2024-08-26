@@ -61,11 +61,18 @@ public class PlayerManager implements IDataManager{
                     if(time.isEmpty() || "null".equalsIgnoreCase(time)){
                         time = null;
                     }
+                    int delay = 0;
+                    if(titleData.getString("delay") != null){
+                        try {
+                            delay = Integer.parseInt(titleData.getString("delay"));
+                        }catch (Exception ignore){}
+                    }
+
                     TitleData td = new TitleData(
                             titleData.getString("name"),
                             time,
                             titleData.getString("cmd"),
-                            titleData.getInt("delay")
+                            delay
                     );
                     td.tid =  titleData.getInt("tid");
                     data.titles.add(td);

@@ -30,7 +30,7 @@ public class TitleData {
     /**
      * 称号执行指令延迟
      * */
-    public int delay;
+    public int delay = 0;
 
     public TitleData(String name,String outTime,String cmd,int delay){
         this.name = name;
