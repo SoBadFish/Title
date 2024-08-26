@@ -53,7 +53,7 @@ public class PlayerManager implements IDataManager{
             return dataList.get(dataList.indexOf(data));
         }
         if(connected){
-            SqlDataList<SqlData> sqlDataList = sqlManager.getData("SELECT * FROM "+PLAYER_TABLE+" LEFT JOIN "+TITLE_TABLE+" ON user = id  WHERE player=?"
+            SqlDataList<SqlData> sqlDataList = sqlManager.getData("SELECT * FROM "+TITLE_TABLE+" LEFT JOIN "+PLAYER_TABLE+" ON "+TITLE_TABLE+".user = "+PLAYER_TABLE+".id  WHERE player=?"
                     ,new ChunkSqlType(1,player));
             if(sqlDataList.size() > 0){
                 for(SqlData titleData: sqlDataList){
