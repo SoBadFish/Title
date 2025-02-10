@@ -43,12 +43,14 @@ public class PlayerData {
                 }
             }
         }else{
-            this.wearTitle = null;
+           String last = this.wearTitle.name;
+           TitleData lastTitle = new TitleData(last,null,null,0);
             Player player = Server.getInstance().getPlayer(name);
             if(player != null){
-                PlayerUnWearTitleEvent titleEvent = new PlayerUnWearTitleEvent(player,title);
+                PlayerUnWearTitleEvent titleEvent = new PlayerUnWearTitleEvent(player,lastTitle);
                 Server.getInstance().getPluginManager().callEvent(titleEvent);
             }
+            this.wearTitle = null;
         }
 
         if(TitleMain.playerManager != null) {
