@@ -1,7 +1,5 @@
 package org.sobadfish.title.data;
 
-import java.util.Objects;
-
 /**
  * @author Sobadfish
  * @date 2022/9/15
@@ -37,8 +35,4 @@ public class ShopData extends TitleData {
 
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
 }

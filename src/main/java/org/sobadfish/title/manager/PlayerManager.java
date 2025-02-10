@@ -106,7 +106,7 @@ public class PlayerManager implements IDataManager{
 
                 SqlData sd = new SqlData();
                 sd.put("name", titleData.name);
-                sd.put("cmd", titleData.cmd);
+                sd.put("cmd", titleData.cmd+"");
                 sd.put("delay", titleData.delay);
                 String time = titleData.outTime;
                 if(titleData.outTime == null || "null".equalsIgnoreCase(titleData.outTime)){
@@ -114,12 +114,13 @@ public class PlayerManager implements IDataManager{
                 }
                 sd.put("time", time);
 
-
                 //重写判断SQL
                 //先判断称号是否存在 存在则更新
                 String sql = "WHERE name = ? AND user = ?";
-                if(sqlManager.getDataSize( sql,TITLE_TABLE, new ChunkSqlType(1, titleData.name)) > 0){
-                    sqlManager.setData(TITLE_TABLE, sd, new SqlData("name", titleData.name).put("user",sqlData.getInt("id")));
+                if(sqlManager.getDataSize( sql,TITLE_TABLE, new ChunkSqlType(1, titleData.name), new ChunkSqlType(2, sqlData.getInt("id")+"")) > 0){
+                    sqlManager.executeSql("UPDATE "+TITLE_TABLE+" SET name = ?,cmd = ?,delay = ?,time = ? WHERE name = ? AND user = ?",
+                            new ChunkSqlType(1, titleData.name), new ChunkSqlType(2,titleData.cmd+"")
+                    , new ChunkSqlType(3,titleData.delay+"" ), new ChunkSqlType(4,time),new ChunkSqlType(5,titleData.name),new ChunkSqlType(6,(sqlData.getInt("id")+"")));
                 }else{
                     sd.put("user", sqlData.getInt("id"));
                     sqlManager.insertData(TITLE_TABLE, sd);

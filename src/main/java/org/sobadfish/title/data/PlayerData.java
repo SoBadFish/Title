@@ -48,28 +48,32 @@ public class PlayerData {
 
     public void addTitle(TitleData title){
         TitleData titleData = title;
-        if(titles.contains(title)){
-            titleData = titles.get(titles.indexOf(title));
-            String outTime = title.outTime;
-            if(title instanceof ShopData){
-                if(((ShopData) title).time <= 0){
-                    outTime = null;
-                }else{
-                    if(titleData.outTime != null && !"null".equalsIgnoreCase(titleData.outTime) && !titleData.outTime.isEmpty()){
-                        int tt = Tools.calLastedTime(titleData.outTime);
-                        tt += ((ShopData) title).time;
-                        outTime = Tools.mathTime(tt);
-                    }
-                }
-
+        TitleData shopAdd = null;
+        int addTime = 0;
+        if (title instanceof ShopData){
+            addTime = ((ShopData) title).time;
+            String time = "null";
+            if(((ShopData) title).time > 0){
+                time = Tools.mathTime(((ShopData) title).time);
             }
-
+            shopAdd = new TitleData(title.name,time,title.cmd,title.delay);
+        }
+        if(shopAdd != null && titles.contains(shopAdd)){
+            titleData = titles.get(titles.indexOf(shopAdd));
+            String outTime = shopAdd.outTime;
+            if(addTime > 0) {
+                if (titleData.outTime != null && !"null".equalsIgnoreCase(titleData.outTime) && !titleData.outTime.isEmpty()) {
+                    int tt = Tools.calLastedTime(titleData.outTime);
+                    tt += addTime;
+                    outTime = Tools.mathTime(tt);
+                }
+            }
             if(outTime == null){
-                titleData.outTime = null;
+                titleData.outTime = "null";
             }else{
                 int time = Tools.calLastedTime(outTime);
                 if(time < 0){
-                    titleData.outTime = null;
+                    titleData.outTime = "null";
                 }else{
                     titleData.outTime = Tools.mathTime(time);
                 }

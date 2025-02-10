@@ -2,8 +2,6 @@ package org.sobadfish.title.data;
 
 import org.sobadfish.title.utils.Tools;
 
-import java.util.Objects;
-
 /**
  * @author Sobadfish
  * @date 2024/1/8
@@ -62,7 +60,14 @@ public class TitleData {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(name);
+    public String toString() {
+        return "TitleData{" +
+                "tid=" + tid +
+                ", name='" + name + '\'' +
+                ", outTime='" + outTime + '\'' +
+                ", cmd='" + cmd + '\'' +
+                ", delay=" + delay +
+                '}';
     }
+
 }

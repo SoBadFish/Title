@@ -59,7 +59,7 @@ public class Tools {
         } catch (ParseException ignore) {
             return -1;
         }
-        return (int) ((nowDate - t) / 1000);
+        return (int) (( t - nowDate) / 1000);
 
     }
 

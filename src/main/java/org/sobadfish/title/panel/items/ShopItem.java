@@ -94,6 +94,6 @@ public class ShopItem extends BasePlayPanelItemInstance {
 
     @Override
     public ElementButton getButton(Player info) {
-        return new ElementButton(TextFormat.colorize('&',titleData.name+" &2 "+ Tools.timeToString(titleData.time)+" &e￥"+titleData.money+"\n&l&e点击购买"),new ElementButtonImageData("path","textures/ui/message"));
+        return new ElementButton(TextFormat.colorize('&',titleData.name+" &2 "+ Tools.timeToString(titleData.time)+" &e"+titleData.money+"\n&l&e点击购买"),new ElementButtonImageData("path","textures/ui/message"));
     }
 }

@@ -100,7 +100,7 @@ public class PlayerItem extends BasePlayPanelItemInstance {
     @Override
     public ElementButton getButton(Player info) {
         PlayerData playerData = TitleMain.playerManager.getData(info.getName());
-        return new ElementButton(TextFormat.colorize('&',titleData.name.replace("@p",info.getName())+"&r&7有效期 ("+((titleData.outTime == null || "".equalsIgnoreCase(titleData.outTime) || "null".equalsIgnoreCase(titleData.outTime))?"永久":titleData.outTime)+"&7)\n&r"
+        return new ElementButton(TextFormat.colorize('&',titleData.name.replace("@p",info.getName())+"&r&2有效期 ("+((titleData.outTime == null || "".equalsIgnoreCase(titleData.outTime) || "null".equalsIgnoreCase(titleData.outTime))?"永久":titleData.outTime)+"&2)\n&r"
                 +((playerData.wearTitle != null && playerData.wearTitle.equals(titleData))?"&a已佩戴":"&c未佩戴")
         ),new ElementButtonImageData("path","textures/ui/message"));
     }
