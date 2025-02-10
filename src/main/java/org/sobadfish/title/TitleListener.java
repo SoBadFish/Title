@@ -12,6 +12,8 @@ import cn.nukkit.inventory.transaction.InventoryTransaction;
 import cn.nukkit.inventory.transaction.action.InventoryAction;
 import cn.nukkit.item.Item;
 import org.sobadfish.title.data.PlayerData;
+import org.sobadfish.title.data.TitleData;
+import org.sobadfish.title.event.*;
 import org.sobadfish.title.panel.BasePlayPanelItemInstance;
 import org.sobadfish.title.panel.ChestInventoryPanel;
 import org.sobadfish.title.panel.DisPlayWindowsFrom;
@@ -91,5 +93,41 @@ public class TitleListener implements Listener {
     }
 
 
+    @EventHandler
+    public void onPlayerAddTitleEvent(PlayerAddTitleEvent event){
+        Player player = event.getPlayer();
+        TitleData titleData = event.titleData;
+        TitleMain.sendMessageToObject("&a获得称号:&r "+titleData.name.replace("@p",player.getName())
+                +" 有效期: &7"+  ((titleData.outTime == null || "".equalsIgnoreCase(titleData.outTime))?"永久":titleData.outTime),player);
+    }
+
+    @EventHandler
+    public void onPlayerWearTitleEvent(PlayerWearTitleEvent event){
+        Player player = event.getPlayer();
+        TitleData titleData = event.titleData;
+        TitleMain.sendMessageToObject("&a穿戴称号:&r "+titleData.name.replace("@p",player.getName()),player);
+    }
+
+
+    @EventHandler
+    public void onPlayerUnWearTitleEvent(PlayerUnWearTitleEvent event){
+        Player player = event.getPlayer();
+        TitleData titleData = event.titleData;
+        TitleMain.sendMessageToObject("&c卸下称号:&r "+titleData.name.replace("@p",player.getName()),player);
+    }
+
+    @EventHandler
+    public void onPlayerTitleTimeOutEvent(PlayerTitleTimeOutEvent event){
+        Player player = event.getPlayer();
+        TitleData titleData = event.titleData;
+        TitleMain.sendMessageToObject("&r "+titleData.name.replace("@p",player.getName())+" &c称号已过期!",player);
+    }
+
+    @EventHandler
+    public void onPlayerRemoveTitleEvent(PlayerRemoveTitleEvent event){
+        Player player = event.getPlayer();
+        TitleData titleData = event.titleData;
+        TitleMain.sendMessageToObject("&c你失去了 &r "+titleData.name.replace("@p",player.getName())+" &r称号!",player);
+    }
 
 }

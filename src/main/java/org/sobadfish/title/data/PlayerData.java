@@ -2,7 +2,9 @@ package org.sobadfish.title.data;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import org.jetbrains.annotations.NotNull;
 import org.sobadfish.title.TitleMain;
+import org.sobadfish.title.event.*;
 import org.sobadfish.title.utils.Tools;
 
 import java.util.ArrayList;
@@ -34,9 +36,19 @@ public class PlayerData {
         if(title != null){
             if(titles.contains(title)){
                 this.wearTitle = title;
+                Player player = Server.getInstance().getPlayer(name);
+                if(player != null){
+                    PlayerWearTitleEvent titleEvent = new PlayerWearTitleEvent(player,title);
+                    Server.getInstance().getPluginManager().callEvent(titleEvent);
+                }
             }
         }else{
             this.wearTitle = null;
+            Player player = Server.getInstance().getPlayer(name);
+            if(player != null){
+                PlayerUnWearTitleEvent titleEvent = new PlayerUnWearTitleEvent(player,title);
+                Server.getInstance().getPluginManager().callEvent(titleEvent);
+            }
         }
 
         if(TitleMain.playerManager != null) {
@@ -46,9 +58,9 @@ public class PlayerData {
         }
     }
 
-    public void addTitle(TitleData title){
+    public void addTitle(@NotNull TitleData title){
         TitleData titleData = title;
-        TitleData shopAdd = null;
+        TitleData shopAdd;
         int addTime = 0;
         if (title instanceof ShopData){
             addTime = ((ShopData) title).time;
@@ -57,8 +69,10 @@ public class PlayerData {
                 time = Tools.mathTime(((ShopData) title).time);
             }
             shopAdd = new TitleData(title.name,time,title.cmd,title.delay);
+        }else{
+            shopAdd = title;
         }
-        if(shopAdd != null && titles.contains(shopAdd)){
+        if(titles.contains(shopAdd)){
             titleData = titles.get(titles.indexOf(shopAdd));
             String outTime = shopAdd.outTime;
             if(addTime > 0) {
@@ -80,7 +94,7 @@ public class PlayerData {
 
             }
 
-        }else{
+        }else {
             if(title instanceof ShopData){
                 titleData = ((ShopData) title).asTitleData();
             }
@@ -95,7 +109,24 @@ public class PlayerData {
             titles.add(titleData);
         }
         this.wearTitle = titleData;
+        Player player = Server.getInstance().getPlayer(name);
+        if(player != null){
+            PlayerWearTitleEvent titleEvent = new PlayerWearTitleEvent(player,titleData);
+            Server.getInstance().getPluginManager().callEvent(titleEvent);
+        }
         if(TitleMain.playerManager != null) {
+            if (player != null) {
+                if (title instanceof ShopData) {
+                    PlayerBuyTitleEvent event = new PlayerBuyTitleEvent(player, (ShopData) title);
+                    Server.getInstance().getPluginManager().callEvent(event);
+                } else {
+                    PlayerAddTitleEvent event = new PlayerAddTitleEvent(player, titleData);
+                    Server.getInstance().getPluginManager().callEvent(event);
+
+                }
+
+            }
+
             TitleMain.playerManager.addTitle(name, titleData);
         }else{
             TitleMain.sendMessageToConsole("&c未连接到数据库,可能会出现称号丢失问题。请检查数据库连接参数是否正常");
@@ -118,6 +149,11 @@ public class PlayerData {
                     TitleMain.sendMessageToConsole("&c未连接到数据库,可能会出现称号丢失问题。请检查数据库连接参数是否正常");
                 }
                 titles.remove(titleData);
+                Player player = Server.getInstance().getPlayer(name);
+                if(player != null){
+                    PlayerRemoveTitleEvent titleEvent = new PlayerRemoveTitleEvent(player,titleData);
+                    Server.getInstance().getPluginManager().callEvent(titleEvent);
+                }
                 return true;
             }
         }
@@ -145,7 +181,13 @@ public class PlayerData {
                 if(TitleMain.playerManager != null){
                     TitleMain.playerManager.removeTitle(this.name, titleData.name);
                 }
+                Player player = Server.getInstance().getPlayer(name);
+                if(player != null){
+                    PlayerTitleTimeOutEvent titleEvent = new PlayerTitleTimeOutEvent(player,titleData);
+                    Server.getInstance().getPluginManager().callEvent(titleEvent);
+                }
                 titles.remove(titleData);
+
 
             }
         }
